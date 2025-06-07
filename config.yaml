@@ -27,8 +27,8 @@ default:
     RANDOM_MESSAGES: ["gm", "GM", "gn", "GN"]
 
   AI:
-    # deepseek or openai
-    provider: "openai"
+    # deepseek , openai , nous
+    provider: "nous"
 
     # model settings
     #
@@ -39,7 +39,10 @@ default:
     # openai: https://platform.openai.com/docs/pricing
     # - gpt-4o
     # - gpt-4o-mini
-    model: "gpt-4o"
+    #
+    # nous: https://portal.nousresearch.com/models
+    # - deephermes-3-mistral-24b-preview
+    model: "deephermes-3-mistral-24b-preview"
 
     # you can use multiple api keys
     api_key: [ "sk-" ]

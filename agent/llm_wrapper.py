@@ -26,9 +26,11 @@ class LLMFactory:
             return self._get_openai_llm(random.choice(api_key))
         elif self.provider == "deepseek":
             return self._get_deepseek_llm(random.choice(api_key))
+        elif self.provider == "nous":
+            return self._get_nous_llm(random.choice(api_key))
         else:
             raise ValueError(
-                f"Неизвестный провайдер LLM: '{self.provider}'. Допустимые значения: 'openai', 'deepseek'.")
+                f"Неизвестный провайдер LLM: '{self.provider}'. Допустимые значения: 'openai', 'deepseek', 'nous'.")
 
     @staticmethod
     def _get_openai_llm(api_key: SecretStr):
@@ -51,4 +53,15 @@ class LLMFactory:
             timeout=None,
             max_retries=int(os.getenv("LLM_MAX_RETRIES", 2)),
             api_key=api_key,
+        )
+
+    @staticmethod
+    def _get_nous_llm(api_key: SecretStr):
+        return ChatOpenAI(
+            model=settings.AI.model,
+            temperature=float(os.getenv("LLM_TEMPERATURE", 0)),
+            timeout=None,
+            max_retries=int(os.getenv("LLM_MAX_RETRIES", 2)),
+            api_key=api_key,
+            base_url="https://inference-api.nousresearch.com/v1",
         )
